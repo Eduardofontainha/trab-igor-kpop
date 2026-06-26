@@ -2,7 +2,6 @@ export class CampoMinado {
     constructor(linhas, colunas) {
         this.linhas = linhas;
         this.colunas = colunas;
-
         this.minas = [];
         this.tabuleiro = [];
 
