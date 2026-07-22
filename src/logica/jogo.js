@@ -4,7 +4,7 @@ export class CampoMinado {
         this.colunas = colunas;
         this.minas = [];
         this.tabuleiro = [];
-
+        this.revelado = [];
         this.criarTabuleiro();
     }
 
@@ -44,10 +44,19 @@ export class CampoMinado {
             return "perdeu";
         }
 
-        quadrado.revelado = true;
-
         return "continuar";
     }
+    quadradoRevelado(linha, coluna) {
+        const quadrado = this.tabuleiro[linha][coluna];
+        this.tabuleiro[linha][coluna].revelado = true;
+
+        this.revelado.push({
+            linha,
+            coluna,
+        });
+        return quadrado.revelado;
+    }
+
     pegarTabuleiro(){
 
         return this.tabuleiro;
