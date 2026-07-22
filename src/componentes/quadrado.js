@@ -4,6 +4,7 @@ export default class Quadrado extends HTMLElement {
     coluna: null,
     mina: false,
     revelado: false,
+    minasVizinhas: 0
   };
 
   constructor() {
@@ -52,6 +53,9 @@ export default class Quadrado extends HTMLElement {
         .mina{
           background:black;
         }
+        .revelado{
+          background:gray;
+        }
       </style>
 
       <div></div>
@@ -60,6 +64,11 @@ export default class Quadrado extends HTMLElement {
     const div = shadow.querySelector("div");
 
     div.addEventListener("click", () => {
+      this.#estado.revelado = true;
+      if(this.#estado.revelado){
+        div.classList.add("revelado");
+      }
+      console.log("Quadrado revelado:", this.#estado);
       this.dispatchEvent(
         new CustomEvent("clicou", {
           detail: {
@@ -67,13 +76,18 @@ export default class Quadrado extends HTMLElement {
             coluna: this.#estado.coluna,
           },
           bubbles: true,
+          composed: true//propriedade que permite que o evento atravesse o shadow DOM e seja capturado pelo elemento pai
         }),
+        
       );
     });
 
     if (this.#estado.mina) {
       div.classList.add("mina");
     }
+
+    
+    
   }
 }
 
